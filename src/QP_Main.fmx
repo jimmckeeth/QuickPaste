@@ -1,0 +1,259 @@
+object Form9: TForm9
+  Left = 0
+  Top = 0
+  Caption = 'Form9'
+  ClientHeight = 480
+  ClientWidth = 574
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object tabNav: TTabControl
+    Align = Client
+    Size.Width = 574.000000000000000000
+    Size.Height = 480.000000000000000000
+    Size.PlatformDefault = False
+    TabIndex = 0
+    TabOrder = 4
+    TabPosition = PlatformDefault
+    Sizes = (
+      574s
+      454s
+      574s
+      454s)
+    object tabMain: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = True
+      Size.Width = 64.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'tabMain'
+      object ListView1: TListView
+        ItemAppearanceClassName = 'TListItemAppearance'
+        ItemEditAppearanceClassName = 'TListItemShowCheckAppearance'
+        HeaderAppearanceClassName = 'TListHeaderObjects'
+        FooterAppearanceClassName = 'TListHeaderObjects'
+        Align = Client
+        Size.Width = 574.000000000000000000
+        Size.Height = 412.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        OnItemClickEx = ListView1ItemClickEx
+      end
+      object Layout1: TLayout
+        Align = Top
+        Size.Width = 574.000000000000000000
+        Size.Height = 42.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        object SpeedButton1: TSpeedButton
+          Anchors = [akTop, akBottom]
+          Position.X = 508.020568847656300000
+          Position.Y = 8.000000000000000000
+          Size.Width = 57.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'additembutton'
+          Text = 'SpeedButton1'
+          OnClick = SpeedButton1Click
+        end
+      end
+    end
+    object tabEdit: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 58.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'tabEdit'
+      object Memo1: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        DataDetectorTypes = []
+        TextSettings.WordWrap = True
+        Align = Client
+        Size.Width = 574.000000000000000000
+        Size.Height = 413.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Viewport.Width = 570.000000000000000000
+        Viewport.Height = 409.000000000000000000
+      end
+      object Layout2: TLayout
+        Align = Top
+        Size.Width = 574.000000000000000000
+        Size.Height = 41.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        object Edit1: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 1
+          Position.X = 8.000000000000000000
+          Position.Y = 8.000000000000000000
+          Size.Width = 185.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+        end
+        object ComboColorBox1: TComboColorBox
+          Color = claWhite
+          Position.X = 313.000000000000000000
+          Position.Y = 8.000000000000000000
+          Size.Width = 60.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+        end
+        object ComboColorBox2: TComboColorBox
+          Color = claWhite
+          Position.X = 381.000000000000000000
+          Position.Y = 8.000000000000000000
+          Size.Width = 60.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+        end
+        object SpeedButton2: TSpeedButton
+          Anchors = [akTop, akRight]
+          Position.X = 528.000000000000000000
+          Position.Y = 8.000000000000000000
+          Size.Width = 38.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'actiontoolbuttonbordered'
+          Text = 'SpeedButton2'
+          OnClick = SpeedButton2Click
+        end
+        object Edit2: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          TabOrder = 0
+          Position.X = 201.000000000000000000
+          Position.Y = 8.000000000000000000
+          Size.Width = 104.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+        end
+        object SpeedButton3: TSpeedButton
+          Anchors = [akTop, akRight]
+          Position.X = 482.000000000000000000
+          Position.Y = 8.000000000000000000
+          Size.Width = 38.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'escapetoolbutton'
+          Text = 'SpeedButton2'
+          OnClick = SpeedButton3Click
+        end
+      end
+    end
+  end
+  object FDConnection1: TFDConnection
+    Params.Strings = (
+      'Database=C:\Users\Jim\Desktop\QuickPaste\QuickPaste.sqlite3'
+      'LockingMode=Normal'
+      'DriverID=SQLite')
+    LoginPrompt = False
+    Left = 184
+    Top = 240
+  end
+  object qryClips: TFDQuery
+    AfterInsert = qryClipsAfterInsert
+    Connection = FDConnection1
+    SQL.Strings = (
+      'select * from clips')
+    Left = 304
+    Top = 288
+    object qryClipsidx: TFDAutoIncField
+      FieldName = 'idx'
+      Origin = 'idx'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object qryClipsName: TWideStringField
+      FieldName = 'Name'
+      Origin = 'Name'
+      Size = 1024
+    end
+    object qryClipsBody: TWideMemoField
+      FieldName = 'Body'
+      Origin = 'Body'
+      BlobType = ftWideMemo
+    end
+    object qryClipsCategory: TWideStringField
+      FieldName = 'Category'
+      Origin = 'Category'
+      Size = 256
+    end
+    object qryClipsForeground: TLargeintField
+      FieldName = 'Foreground'
+      Origin = 'Foreground'
+    end
+    object qryClipsBackground: TLargeintField
+      FieldName = 'Background'
+      Origin = 'Background'
+    end
+  end
+  object BindSourceDB1: TBindSourceDB
+    DataSet = qryClips
+    ScopeMappings = <>
+    Left = 256
+    Top = 360
+  end
+  object BindingsList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 44
+    Top = 285
+    object LinkListControlToField1: TLinkListControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Name'
+      Control = ListView1
+      FillExpressions = <>
+      FillHeaderExpressions = <>
+      FillHeaderFieldName = 'Category'
+      FillBreakGroups = <>
+    end
+    object LinkControlToField1: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Body'
+      Control = Memo1
+      Track = False
+    end
+    object LinkControlToField2: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Name'
+      Control = Edit1
+      Track = False
+    end
+    object LinkControlToField3: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Foreground'
+      Control = ComboColorBox1
+      Track = True
+    end
+    object LinkControlToField4: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Background'
+      Control = ComboColorBox2
+      Track = True
+    end
+    object LinkControlToField5: TLinkControlToField
+      Category = 'Quick Bindings'
+      DataSource = BindSourceDB1
+      FieldName = 'Category'
+      Control = Edit2
+      Track = False
+    end
+  end
+end
