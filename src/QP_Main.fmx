@@ -1,9 +1,9 @@
 object Form9: TForm9
   Left = 0
   Top = 0
-  Caption = 'Form9'
-  ClientHeight = 480
-  ClientWidth = 574
+  Caption = 'Quick Paste by Ethan'
+  ClientHeight = 620
+  ClientWidth = 320
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -11,56 +11,133 @@ object Form9: TForm9
   DesignerMasterStyle = 0
   object tabNav: TTabControl
     Align = Client
-    Size.Width = 574.000000000000000000
-    Size.Height = 480.000000000000000000
+    Size.Width = 320.000000000000000000
+    Size.Height = 620.000000000000000000
     Size.PlatformDefault = False
     TabIndex = 0
     TabOrder = 4
-    TabPosition = PlatformDefault
+    TabPosition = None
     Sizes = (
-      574s
-      454s
-      574s
-      454s)
+      320s
+      620s
+      320s
+      620s)
     object tabMain: TTabItem
       CustomIcon = <
         item
         end>
       IsSelected = True
-      Size.Width = 64.000000000000000000
-      Size.Height = 26.000000000000000000
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
-      Text = 'tabMain'
-      object ListView1: TListView
-        ItemAppearanceClassName = 'TListItemAppearance'
-        ItemEditAppearanceClassName = 'TListItemShowCheckAppearance'
+      Text = 'Main'
+      ExplicitSize.cx = 64.000000000000000000
+      ExplicitSize.cy = 26.000000000000000000
+      object itemsList: TListView
+        ItemAppearanceClassName = 'TListItemRightDetailAppearance'
+        ItemEditAppearanceClassName = 'TListItemRightDetailDeleteAppearance'
         HeaderAppearanceClassName = 'TListHeaderObjects'
         FooterAppearanceClassName = 'TListHeaderObjects'
         Align = Client
-        Size.Width = 574.000000000000000000
-        Size.Height = 412.000000000000000000
+        Size.Width = 320.000000000000000000
+        Size.Height = 477.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
-        OnItemClickEx = ListView1ItemClickEx
+        OnPaint = itemsListPaint
+        ItemAppearanceObjects.ItemObjects.Text.Width = 170.000000000000000000
+        ItemAppearanceObjects.ItemObjects.Text.Height = 44.000000000000000000
+        ItemAppearanceObjects.ItemObjects.Text.PlaceOffset.X = 16.000000000000000000
+        ItemAppearanceObjects.HeaderObjects.Text.Font.StyleExt = {00070000000000000004000000}
+        OnItemClickEx = itemsListItemClickEx
       end
       object Layout1: TLayout
         Align = Top
-        Size.Width = 574.000000000000000000
+        Size.Width = 320.000000000000000000
         Size.Height = 42.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
         object SpeedButton1: TSpeedButton
           Anchors = [akTop, akBottom]
-          Position.X = 508.020568847656300000
-          Position.Y = 8.000000000000000000
+          Hint = 'Add New'
+          Position.X = 271.000000000000000000
+          Position.Y = 10.000000000000000000
           Size.Width = 57.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
+          ParentShowHint = False
+          ShowHint = True
           StyleLookup = 'additembutton'
           Text = 'SpeedButton1'
           OnClick = SpeedButton1Click
+        end
+        object ckAccumulate: TCheckBox
+          IsChecked = True
+          Position.X = 8.000000000000000000
+          Position.Y = 10.000000000000000000
+          Size.Width = 97.000000000000000000
+          Size.Height = 19.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          Text = 'Accumulate'
+          OnChange = ckAccumulateChange
+        end
+      end
+      object splitAccumulate: TSplitter
+        Align = Bottom
+        Cursor = crVSplit
+        MinSize = 20.000000000000000000
+        Position.Y = 519.000000000000000000
+        Size.Width = 320.000000000000000000
+        Size.Height = 9.000000000000000000
+        Size.PlatformDefault = False
+      end
+      object layAccumulate: TLayout
+        Align = MostBottom
+        Position.Y = 528.000000000000000000
+        Size.Width = 320.000000000000000000
+        Size.Height = 92.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 3
+        object txtAccumulate: TMemo
+          Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+          DataDetectorTypes = []
+          Align = Client
+          Size.Width = 256.000000000000000000
+          Size.Height = 92.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+          Viewport.Width = 252.000000000000000000
+          Viewport.Height = 88.000000000000000000
+        end
+        object Layout4: TLayout
+          Align = Right
+          Position.X = 256.000000000000000000
+          Size.Width = 64.000000000000000000
+          Size.Height = 92.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          object SpeedButton5: TSpeedButton
+            Position.X = 8.000000000000000000
+            Position.Y = 8.000000000000000000
+            Size.Width = 49.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'buttonstyle'
+            Text = 'Clear'
+            OnClick = SpeedButton5Click
+          end
+          object SpeedButton6: TSpeedButton
+            Position.X = 7.000000000000000000
+            Position.Y = 38.000000000000000000
+            Size.Width = 49.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = 'buttonstyle'
+            Text = 'Copy'
+            OnClick = SpeedButton6Click
+          end
         end
       end
     end
@@ -69,28 +146,30 @@ object Form9: TForm9
         item
         end>
       IsSelected = False
-      Size.Width = 58.000000000000000000
-      Size.Height = 26.000000000000000000
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
-      Text = 'tabEdit'
+      Text = 'Edit'
+      ExplicitSize.cx = 58.000000000000000000
+      ExplicitSize.cy = 26.000000000000000000
       object Memo1: TMemo
         Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
         DataDetectorTypes = []
         TextSettings.WordWrap = True
         Align = Client
-        Size.Width = 574.000000000000000000
-        Size.Height = 413.000000000000000000
+        Size.Width = 320.000000000000000000
+        Size.Height = 547.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
-        Viewport.Width = 570.000000000000000000
-        Viewport.Height = 409.000000000000000000
+        Viewport.Width = 316.000000000000000000
+        Viewport.Height = 543.000000000000000000
       end
       object Layout2: TLayout
         Align = Top
-        Size.Width = 574.000000000000000000
-        Size.Height = 41.000000000000000000
+        Size.Width = 320.000000000000000000
+        Size.Height = 73.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
         object Edit1: TEdit
@@ -98,35 +177,37 @@ object Form9: TForm9
           TabOrder = 1
           Position.X = 8.000000000000000000
           Position.Y = 8.000000000000000000
-          Size.Width = 185.000000000000000000
+          Size.Width = 200.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
         end
         object ComboColorBox1: TComboColorBox
-          Color = claWhite
-          Position.X = 313.000000000000000000
-          Position.Y = 8.000000000000000000
+          Color = claNull
+          Position.X = 8.000000000000000000
+          Position.Y = 38.000000000000000000
           Size.Width = 60.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 3
         end
         object ComboColorBox2: TComboColorBox
-          Color = claWhite
-          Position.X = 381.000000000000000000
-          Position.Y = 8.000000000000000000
+          Color = claNull
+          Position.X = 76.000000000000000000
+          Position.Y = 38.000000000000000000
           Size.Width = 60.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 2
         end
         object SpeedButton2: TSpeedButton
-          Anchors = [akTop, akRight]
-          Position.X = 528.000000000000000000
+          Hint = 'Save'
+          Position.X = 266.000000000000000000
           Position.Y = 8.000000000000000000
           Size.Width = 38.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
+          ParentShowHint = False
+          ShowHint = True
           StyleLookup = 'actiontoolbuttonbordered'
           Text = 'SpeedButton2'
           OnClick = SpeedButton2Click
@@ -134,46 +215,67 @@ object Form9: TForm9
         object Edit2: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           TabOrder = 0
-          Position.X = 201.000000000000000000
-          Position.Y = 8.000000000000000000
-          Size.Width = 104.000000000000000000
+          Position.X = 144.000000000000000000
+          Position.Y = 38.000000000000000000
+          Size.Width = 64.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
         end
         object SpeedButton3: TSpeedButton
-          Anchors = [akTop, akRight]
-          Position.X = 482.000000000000000000
+          Hint = 'Cancel Edit'
+          Position.X = 220.000000000000000000
           Position.Y = 8.000000000000000000
           Size.Width = 38.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
+          ParentShowHint = False
+          ShowHint = True
           StyleLookup = 'escapetoolbutton'
           Text = 'SpeedButton2'
           OnClick = SpeedButton3Click
         end
+        object SpeedButton4: TSpeedButton
+          Hint = 'Delete'
+          Position.X = 224.000000000000000000
+          Position.Y = 38.000000000000000000
+          Size.Width = 34.000000000000000000
+          Size.Height = 22.000000000000000000
+          Size.PlatformDefault = False
+          ParentShowHint = False
+          ShowHint = True
+          StyleLookup = 'trashtoolbutton'
+          Text = 'SpeedButton4'
+          OnClick = SpeedButton4Click
+        end
       end
     end
   end
-  object FDConnection1: TFDConnection
+  object dbConnection: TFDConnection
     Params.Strings = (
-      'Database=C:\Users\Jim\Desktop\QuickPaste\QuickPaste.sqlite3'
+      
+        'Database=C:\Users\jim\Documents\Embarcadero\Studio\Projects\Quic' +
+        'kPaste\data\QuickPaste.sqlite3'
       'LockingMode=Normal'
       'DriverID=SQLite')
+    Connected = True
     LoginPrompt = False
-    Left = 184
-    Top = 240
+    Left = 32
+    Top = 200
   end
   object qryClips: TFDQuery
     AfterInsert = qryClipsAfterInsert
-    Connection = FDConnection1
+    OnCalcFields = qryClipsCalcFields
+    IndexFieldNames = 'Category;Name'
+    Connection = dbConnection
     SQL.Strings = (
       'select * from clips')
-    Left = 304
-    Top = 288
+    Left = 232
+    Top = 280
     object qryClipsidx: TFDAutoIncField
       FieldName = 'idx'
       Origin = 'idx'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object qryClipsName: TWideStringField
       FieldName = 'Name'
@@ -198,12 +300,18 @@ object Form9: TForm9
       FieldName = 'Background'
       Origin = 'Background'
     end
+    object qryClipsColorCheat: TWideStringField
+      FieldKind = fkCalculated
+      FieldName = 'ColorCheat'
+      Size = 100
+      Calculated = True
+    end
   end
   object BindSourceDB1: TBindSourceDB
     DataSet = qryClips
     ScopeMappings = <>
-    Left = 256
-    Top = 360
+    Left = 168
+    Top = 400
   end
   object BindingsList1: TBindingsList
     Methods = <>
@@ -214,8 +322,12 @@ object Form9: TForm9
       Category = 'Quick Bindings'
       DataSource = BindSourceDB1
       FieldName = 'Name'
-      Control = ListView1
-      FillExpressions = <>
+      Control = itemsList
+      FillExpressions = <
+        item
+          SourceMemberName = 'ColorCheat'
+          ControlMemberName = 'Detail'
+        end>
       FillHeaderExpressions = <>
       FillHeaderFieldName = 'Category'
       FillBreakGroups = <>
