@@ -3,7 +3,7 @@ object Form9: TForm9
   Top = 0
   Caption = 'Quick Paste by Ethan'
   ClientHeight = 620
-  ClientWidth = 320
+  ClientWidth = 270
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -11,22 +11,22 @@ object Form9: TForm9
   DesignerMasterStyle = 0
   object tabNav: TTabControl
     Align = Client
-    Size.Width = 320.000000000000000000
+    Size.Width = 270.000000000000000000
     Size.Height = 620.000000000000000000
     Size.PlatformDefault = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 4
     TabPosition = None
     Sizes = (
-      320s
+      270s
       620s
-      320s
+      270s
       620s)
     object tabMain: TTabItem
       CustomIcon = <
         item
         end>
-      IsSelected = True
+      IsSelected = False
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -41,8 +41,8 @@ object Form9: TForm9
         HeaderAppearanceClassName = 'TListHeaderObjects'
         FooterAppearanceClassName = 'TListHeaderObjects'
         Align = Client
-        Size.Width = 320.000000000000000000
-        Size.Height = 477.000000000000000000
+        Size.Width = 270.000000000000000000
+        Size.Height = 476.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         OnPaint = itemsListPaint
@@ -54,14 +54,14 @@ object Form9: TForm9
       end
       object Layout1: TLayout
         Align = Top
-        Size.Width = 320.000000000000000000
+        Size.Width = 270.000000000000000000
         Size.Height = 42.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
         object SpeedButton1: TSpeedButton
           Anchors = [akTop, akBottom]
           Hint = 'Add New'
-          Position.X = 271.000000000000000000
+          Position.X = 224.203125000000000000
           Position.Y = 10.000000000000000000
           Size.Width = 57.000000000000000000
           Size.Height = 22.000000000000000000
@@ -89,14 +89,14 @@ object Form9: TForm9
         Cursor = crVSplit
         MinSize = 20.000000000000000000
         Position.Y = 519.000000000000000000
-        Size.Width = 320.000000000000000000
+        Size.Width = 270.000000000000000000
         Size.Height = 9.000000000000000000
         Size.PlatformDefault = False
       end
       object layAccumulate: TLayout
         Align = MostBottom
         Position.Y = 528.000000000000000000
-        Size.Width = 320.000000000000000000
+        Size.Width = 270.000000000000000000
         Size.Height = 92.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 3
@@ -104,22 +104,24 @@ object Form9: TForm9
           Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
           DataDetectorTypes = []
           Align = Client
-          Size.Width = 256.000000000000000000
-          Size.Height = 92.000000000000000000
+          Margins.Left = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Size.Width = 201.000000000000000000
+          Size.Height = 87.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 2
-          Viewport.Width = 252.000000000000000000
-          Viewport.Height = 88.000000000000000000
+          Viewport.Width = 197.000000000000000000
+          Viewport.Height = 83.000000000000000000
         end
         object Layout4: TLayout
           Align = Right
-          Position.X = 256.000000000000000000
+          Position.X = 206.000000000000000000
           Size.Width = 64.000000000000000000
           Size.Height = 92.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 3
           object SpeedButton5: TSpeedButton
-            Position.X = 8.000000000000000000
+            Position.X = 7.000000000000000000
             Position.Y = 8.000000000000000000
             Size.Width = 49.000000000000000000
             Size.Height = 22.000000000000000000
@@ -140,12 +142,20 @@ object Form9: TForm9
           end
         end
       end
+      object Line1: TLine
+        Align = Bottom
+        LineType = Diagonal
+        Position.Y = 518.000000000000000000
+        Size.Width = 270.000000000000000000
+        Size.Height = 1.000000000000000000
+        Size.PlatformDefault = False
+      end
     end
     object tabEdit: TTabItem
       CustomIcon = <
         item
         end>
-      IsSelected = False
+      IsSelected = True
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -159,16 +169,19 @@ object Form9: TForm9
         DataDetectorTypes = []
         TextSettings.WordWrap = True
         Align = Client
-        Size.Width = 320.000000000000000000
-        Size.Height = 547.000000000000000000
+        Margins.Left = 5.000000000000000000
+        Margins.Right = 5.000000000000000000
+        Margins.Bottom = 5.000000000000000000
+        Size.Width = 260.000000000000000000
+        Size.Height = 542.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
-        Viewport.Width = 316.000000000000000000
-        Viewport.Height = 543.000000000000000000
+        Viewport.Width = 256.000000000000000000
+        Viewport.Height = 538.000000000000000000
       end
       object Layout2: TLayout
         Align = Top
-        Size.Width = 320.000000000000000000
+        Size.Width = 270.000000000000000000
         Size.Height = 73.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
@@ -177,7 +190,7 @@ object Form9: TForm9
           TabOrder = 1
           Position.X = 8.000000000000000000
           Position.Y = 8.000000000000000000
-          Size.Width = 200.000000000000000000
+          Size.Width = 174.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
         end
@@ -185,23 +198,23 @@ object Form9: TForm9
           Color = claNull
           Position.X = 8.000000000000000000
           Position.Y = 38.000000000000000000
-          Size.Width = 60.000000000000000000
+          Size.Width = 47.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 3
         end
         object ComboColorBox2: TComboColorBox
           Color = claNull
-          Position.X = 76.000000000000000000
+          Position.X = 63.000000000000000000
           Position.Y = 38.000000000000000000
-          Size.Width = 60.000000000000000000
+          Size.Width = 47.000000000000000000
           Size.Height = 22.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 2
         end
         object SpeedButton2: TSpeedButton
           Hint = 'Save'
-          Position.X = 266.000000000000000000
+          Position.X = 234.000000000000000000
           Position.Y = 8.000000000000000000
           Size.Width = 38.000000000000000000
           Size.Height = 22.000000000000000000
@@ -215,7 +228,7 @@ object Form9: TForm9
         object Edit2: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           TabOrder = 0
-          Position.X = 144.000000000000000000
+          Position.X = 118.000000000000000000
           Position.Y = 38.000000000000000000
           Size.Width = 64.000000000000000000
           Size.Height = 22.000000000000000000
@@ -223,7 +236,7 @@ object Form9: TForm9
         end
         object SpeedButton3: TSpeedButton
           Hint = 'Cancel Edit'
-          Position.X = 220.000000000000000000
+          Position.X = 188.000000000000000000
           Position.Y = 8.000000000000000000
           Size.Width = 38.000000000000000000
           Size.Height = 22.000000000000000000
@@ -236,7 +249,7 @@ object Form9: TForm9
         end
         object SpeedButton4: TSpeedButton
           Hint = 'Delete'
-          Position.X = 224.000000000000000000
+          Position.X = 192.000000000000000000
           Position.Y = 38.000000000000000000
           Size.Width = 34.000000000000000000
           Size.Height = 22.000000000000000000
@@ -269,8 +282,8 @@ object Form9: TForm9
     Connection = dbConnection
     SQL.Strings = (
       'select * from clips')
-    Left = 232
-    Top = 280
+    Left = 88
+    Top = 376
     object qryClipsidx: TFDAutoIncField
       FieldName = 'idx'
       Origin = 'idx'

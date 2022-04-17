@@ -18,7 +18,8 @@ uses
   FMX.Layouts, Fmx.Bind.Navigator, Data.Bind.Components, Data.Bind.Grid,
   Data.Bind.DBScope, FMX.ScrollBox, FMX.Grid, FMX.ListView.Types,
   FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.TabControl,
-  FMX.ListView, FMX.Memo.Types, FMX.Colors, FMX.Memo, FMX.Edit, FMX.ListBox;
+  FMX.ListView, FMX.Memo.Types, FMX.Colors, FMX.Memo, FMX.Edit, FMX.ListBox,
+  FMX.Objects;
 
 type
   TForm9 = class(TForm)
@@ -61,6 +62,7 @@ type
     Layout4: TLayout;
     SpeedButton5: TSpeedButton;
     SpeedButton6: TSpeedButton;
+    Line1: TLine;
     procedure FormCreate(Sender: TObject);
     procedure itemsListItemClickEx(const Sender: TObject;
       ItemIndex: Integer; const LocalClickPos: TPointF;
