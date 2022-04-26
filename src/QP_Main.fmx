@@ -2,8 +2,8 @@ object Form9: TForm9
   Left = 0
   Top = 0
   Caption = 'Quick Paste by Ethan'
-  ClientHeight = 620
-  ClientWidth = 270
+  ClientHeight = 600
+  ClientWidth = 298
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -11,17 +11,17 @@ object Form9: TForm9
   DesignerMasterStyle = 0
   object tabNav: TTabControl
     Align = Client
-    Size.Width = 270.000000000000000000
-    Size.Height = 620.000000000000000000
+    Size.Width = 298.000000000000000000
+    Size.Height = 600.000000000000000000
     Size.PlatformDefault = False
     TabIndex = 1
     TabOrder = 4
     TabPosition = None
     Sizes = (
-      270s
-      620s
-      270s
-      620s)
+      298s
+      600s
+      298s
+      600s)
     object tabMain: TTabItem
       CustomIcon = <
         item
@@ -41,8 +41,8 @@ object Form9: TForm9
         HeaderAppearanceClassName = 'TListHeaderObjects'
         FooterAppearanceClassName = 'TListHeaderObjects'
         Align = Client
-        Size.Width = 270.000000000000000000
-        Size.Height = 476.000000000000000000
+        Size.Width = 298.000000000000000000
+        Size.Height = 456.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         OnPaint = itemsListPaint
@@ -54,14 +54,14 @@ object Form9: TForm9
       end
       object Layout1: TLayout
         Align = Top
-        Size.Width = 270.000000000000000000
+        Size.Width = 298.000000000000000000
         Size.Height = 42.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
         object SpeedButton1: TSpeedButton
           Anchors = [akTop, akBottom]
           Hint = 'Add New'
-          Position.X = 224.203125000000000000
+          Position.X = 250.409362792968800000
           Position.Y = 10.000000000000000000
           Size.Width = 57.000000000000000000
           Size.Height = 22.000000000000000000
@@ -88,15 +88,15 @@ object Form9: TForm9
         Align = Bottom
         Cursor = crVSplit
         MinSize = 20.000000000000000000
-        Position.Y = 519.000000000000000000
-        Size.Width = 270.000000000000000000
+        Position.Y = 499.000000000000000000
+        Size.Width = 298.000000000000000000
         Size.Height = 9.000000000000000000
         Size.PlatformDefault = False
       end
       object layAccumulate: TLayout
         Align = MostBottom
-        Position.Y = 528.000000000000000000
-        Size.Width = 270.000000000000000000
+        Position.Y = 508.000000000000000000
+        Size.Width = 298.000000000000000000
         Size.Height = 92.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 3
@@ -106,16 +106,16 @@ object Form9: TForm9
           Align = Client
           Margins.Left = 5.000000000000000000
           Margins.Bottom = 5.000000000000000000
-          Size.Width = 201.000000000000000000
+          Size.Width = 229.000000000000000000
           Size.Height = 87.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 2
-          Viewport.Width = 197.000000000000000000
+          Viewport.Width = 225.000000000000000000
           Viewport.Height = 83.000000000000000000
         end
         object Layout4: TLayout
           Align = Right
-          Position.X = 206.000000000000000000
+          Position.X = 234.000000000000000000
           Size.Width = 64.000000000000000000
           Size.Height = 92.000000000000000000
           Size.PlatformDefault = False
@@ -145,8 +145,8 @@ object Form9: TForm9
       object Line1: TLine
         Align = Bottom
         LineType = Diagonal
-        Position.Y = 518.000000000000000000
-        Size.Width = 270.000000000000000000
+        Position.Y = 498.000000000000000000
+        Size.Width = 298.000000000000000000
         Size.Height = 1.000000000000000000
         Size.PlatformDefault = False
       end
@@ -172,16 +172,16 @@ object Form9: TForm9
         Margins.Left = 5.000000000000000000
         Margins.Right = 5.000000000000000000
         Margins.Bottom = 5.000000000000000000
-        Size.Width = 260.000000000000000000
-        Size.Height = 542.000000000000000000
+        Size.Width = 288.000000000000000000
+        Size.Height = 522.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
-        Viewport.Width = 256.000000000000000000
-        Viewport.Height = 538.000000000000000000
+        Viewport.Width = 284.000000000000000000
+        Viewport.Height = 518.000000000000000000
       end
       object Layout2: TLayout
         Align = Top
-        Size.Width = 270.000000000000000000
+        Size.Width = 298.000000000000000000
         Size.Height = 73.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
@@ -270,9 +270,9 @@ object Form9: TForm9
         'kPaste\data\QuickPaste.sqlite3'
       'LockingMode=Normal'
       'DriverID=SQLite')
-    Connected = True
     LoginPrompt = False
-    Left = 32
+    BeforeConnect = dbConnectionBeforeConnect
+    Left = 48
     Top = 200
   end
   object qryClips: TFDQuery
@@ -380,5 +380,31 @@ object Form9: TForm9
       Control = Edit2
       Track = False
     end
+  end
+  object FDScript1: TFDScript
+    SQLScripts = <
+      item
+        Name = 'CreateDB'
+        SQL.Strings = (
+          '-- Clips definition'
+          'CREATE TABLE Clips ('
+          #9'idx INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,'
+          #9'Name NVARCHAR(1024),'
+          #9'Body TEXT,'
+          #9'Category NVARCHAR(256), '
+          #9'Foreground BIGINT, '
+          #9'Background BIGINT);')
+      end>
+    Connection = dbConnection
+    Params = <>
+    Macros = <>
+    FetchOptions.AssignedValues = [evItems, evAutoClose, evAutoFetchAll]
+    FetchOptions.AutoClose = False
+    FetchOptions.Items = [fiBlobs, fiDetails]
+    ResourceOptions.AssignedValues = [rvMacroCreate, rvMacroExpand, rvDirectExecute, rvPersistent]
+    ResourceOptions.MacroCreate = False
+    ResourceOptions.DirectExecute = True
+    Left = 136
+    Top = 288
   end
 end

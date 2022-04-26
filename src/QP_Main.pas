@@ -19,7 +19,8 @@ uses
   Data.Bind.DBScope, FMX.ScrollBox, FMX.Grid, FMX.ListView.Types,
   FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.TabControl,
   FMX.ListView, FMX.Memo.Types, FMX.Colors, FMX.Memo, FMX.Edit, FMX.ListBox,
-  FMX.Objects;
+  FMX.Objects, FireDAC.Comp.ScriptCommands, FireDAC.Stan.Util,
+  FireDAC.Comp.Script;
 
 type
   TForm9 = class(TForm)
@@ -63,6 +64,7 @@ type
     SpeedButton5: TSpeedButton;
     SpeedButton6: TSpeedButton;
     Line1: TLine;
+    FDScript1: TFDScript;
     procedure FormCreate(Sender: TObject);
     procedure itemsListItemClickEx(const Sender: TObject;
       ItemIndex: Integer; const LocalClickPos: TPointF;
@@ -78,6 +80,7 @@ type
     procedure ckAccumulateChange(Sender: TObject);
     procedure SpeedButton5Click(Sender: TObject);
     procedure SpeedButton6Click(Sender: TObject);
+    procedure dbConnectionBeforeConnect(Sender: TObject);
   private
     { Private declarations }
   public
@@ -99,14 +102,25 @@ begin
   splitAccumulate.Visible := ckAccumulate.IsChecked;
 end;
 
+procedure TForm9.dbConnectionBeforeConnect(Sender: TObject);
+begin
+  if not fileExists(dbConnection.Params.Values['Database']) then
+  begin
+    dbConnection.Params.Values['Database'] := TPath.Combine(
+      ExtractFilePath(ParamStr(0)),
+      ExtractFileName(dbConnection.Params.Values['Database']));
+
+    if not fileExists(dbConnection.Params.Values['Database']) then
+    begin
+      FDScript1.ExecuteScript(
+        FDScript1.SQLScripts.FindScript('CreateDB').SQL);
+    end;
+  end;
+end;
+
 procedure TForm9.FormCreate(Sender: TObject);
 begin
   tabNav.ActiveTab := tabMain;
-  if not fileExists(dbConnection.Params.Values['Database']) then
-    dbConnection.Params.Values['Database'] := TPath.Combine(
-      ExtractFilePath(ParamStr(0)),
-      ExtractFileName(dbConnection.Params.Values['Database'])
-      );
   qryClips.Open;
 end;
 
@@ -117,6 +131,7 @@ begin
   if ItemObject is TListItemAccessory then
   begin
     tabNav.ActiveTab := tabEdit;
+    qryClips.Edit;
   end
   else
   begin
