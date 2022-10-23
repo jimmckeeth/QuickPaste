@@ -20,7 +20,7 @@ uses
   FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.TabControl,
   FMX.ListView, FMX.Memo.Types, FMX.Colors, FMX.Memo, FMX.Edit, FMX.ListBox,
   FMX.Objects, FireDAC.Comp.ScriptCommands, FireDAC.Stan.Util,
-  FireDAC.Comp.Script;
+  FireDAC.Comp.Script, FMX.ComboEdit;
 
 type
   TForm9 = class(TForm)
@@ -43,16 +43,10 @@ type
     LinkControlToField1: TLinkControlToField;
     LinkControlToField2: TLinkControlToField;
     Layout2: TLayout;
-    ComboColorBox1: TComboColorBox;
-    ComboColorBox2: TComboColorBox;
     qryClipsForeground: TLargeintField;
     qryClipsBackground: TLargeintField;
-    LinkControlToField3: TLinkControlToField;
-    LinkControlToField4: TLinkControlToField;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
-    Edit2: TEdit;
-    LinkControlToField5: TLinkControlToField;
     SpeedButton3: TSpeedButton;
     qryClipsColorCheat: TWideStringField;
     SpeedButton4: TSpeedButton;
@@ -65,6 +59,17 @@ type
     SpeedButton6: TSpeedButton;
     Line1: TLine;
     FDScript1: TFDScript;
+    styleDark: TStyleBook;
+    ckDark: TCheckBox;
+    cmbCategory: TComboEdit;
+    qryCategories: TFDQuery;
+    qryCategoriesCategory: TWideStringField;
+    BindSourceDB2: TBindSourceDB;
+    LinkFillControlToField1: TLinkFillControlToField;
+    colorBG: TColorButton;
+    colorFG: TColorButton;
+    LinkPropertyToFieldColor: TLinkPropertyToField;
+    LinkPropertyToFieldColor2: TLinkPropertyToField;
     procedure FormCreate(Sender: TObject);
     procedure itemsListItemClickEx(const Sender: TObject;
       ItemIndex: Integer; const LocalClickPos: TPointF;
@@ -81,7 +86,11 @@ type
     procedure SpeedButton5Click(Sender: TObject);
     procedure SpeedButton6Click(Sender: TObject);
     procedure dbConnectionBeforeConnect(Sender: TObject);
+    procedure ckDarkChange(Sender: TObject);
+    procedure colorFGClick(Sender: TObject);
+    procedure colorBGClick(Sender: TObject);
   private
+    procedure UpdateAccumulateUI;
     { Private declarations }
   public
     { Public declarations }
@@ -94,12 +103,44 @@ implementation
 
 {$R *.fmx}
 
-uses IOUtils;
+uses IOUtils, ColorDialog;
 
 procedure TForm9.ckAccumulateChange(Sender: TObject);
 begin
+  UpdateAccumulateUI;
+end;
+
+procedure TForm9.UpdateAccumulateUI;
+begin
   layAccumulate.Visible := ckAccumulate.IsChecked;
   splitAccumulate.Visible := ckAccumulate.IsChecked;
+
+end;
+
+procedure TForm9.ckDarkChange(Sender: TObject);
+begin
+  if ckDark.IsChecked then
+    self.StyleBook := styleDark
+  else
+    self.StyleBook := nil;
+end;
+
+procedure TForm9.colorBGClick(Sender: TObject);
+begin
+  frmColorDialog.Color := colorBG.Color;
+  if frmColorDialog.ShowModal =  mrOk then
+  begin
+    colorBG.Color := frmColorDialog.Color;
+  end;
+end;
+
+procedure TForm9.colorFGClick(Sender: TObject);
+begin
+  frmColorDialog.Color := colorFG.Color;
+  if frmColorDialog.ShowModal =  mrOk then
+  begin
+    colorFG.Color := frmColorDialog.Color;
+  end;
 end;
 
 procedure TForm9.dbConnectionBeforeConnect(Sender: TObject);
@@ -120,8 +161,13 @@ end;
 
 procedure TForm9.FormCreate(Sender: TObject);
 begin
+//  ShowMessage('This applications should only be used for productivity templates.'+sLineBreak+
+//    'The data is not encrypted or secure.'+sLineBreak+
+//    'DO NOT Store any PII, PCI, credentials, or other secrets.');
+
   tabNav.ActiveTab := tabMain;
   qryClips.Open;
+  UpdateAccumulateUI;
 end;
 
 procedure TForm9.itemsListItemClickEx(const Sender: TObject;
@@ -163,7 +209,7 @@ begin
         var fgc := cheat.Split([','])[0].ToInt64;
         var bgc := cheat.Split([','])[1].ToInt64;
         Canvas.Fill.Color := bgc;
-        itemRect.Right := itemRect.Right - 45;
+        itemRect.Right := itemRect.Right - 47;
         Canvas.FillRect(itemRect, 1);
         Canvas.Fill.Color := fgc;
         itemRect.Left := itemRect.Left + 20;
@@ -177,6 +223,15 @@ end;
 
 procedure TForm9.qryClipsAfterInsert(DataSet: TDataSet);
 begin
+  qryCategories.Close;
+  qryCategories.Open;
+  cmbCategory.Items.Clear;
+  while not qryCategories.Eof do
+  begin
+    cmbCategory.Items.Add(qryCategoriesCategory.Value);
+    qryCategories.Next;
+  end;
+
   qryClipsForeground.Value := TAlphaColorRec.Black;
   qryClipsBackground.Value := TAlphaColorRec.White;
   qryClipsCategory.Value := 'Main';
