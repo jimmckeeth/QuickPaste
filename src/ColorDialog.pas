@@ -29,7 +29,6 @@ type
     procedure ColorPanel1Change(Sender: TObject);
     procedure ColorListBox1Change(Sender: TObject);
     procedure edtColorNameChangeTracking(Sender: TObject);
-    procedure edtColorHexChangeTracking(Sender: TObject);
     procedure edtColorNameKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: Char; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
@@ -37,6 +36,7 @@ type
     procedure edtAlphaKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: Char; Shift: TShiftState);
     procedure FormResize(Sender: TObject);
+    procedure edtColorHexExit(Sender: TObject);
   private
     { Private declarations }
     procedure FindNextColorName;
@@ -72,7 +72,7 @@ procedure TfrmColorDialog.ColorPanel1Change(Sender: TObject);
 begin
   var c: TAlphaColorRec;
   c.Color := ColorPanel1.Color;
-  var colorString := Format('%x',[ColorPanel1.Color]);
+  var colorString := Format('%.6x',[ColorPanel1.Color]);
   if colorString.Length > 6 then
     Delete(colorString, 1, 2);
   edtColorHex.Text := colorString;
@@ -93,9 +93,12 @@ begin
   KeyChar := UpCase(KeyChar);
 end;
 
-procedure TfrmColorDialog.edtColorHexChangeTracking(Sender: TObject);
+procedure TfrmColorDialog.edtColorHexExit(Sender: TObject);
 begin
-  ColorPanel1.Color := StrToInt64('$' + edtColorHex.Text.TrimLeft(['#',' ']));
+  if length(edtColorHex.Text)>0  then
+    ColorPanel1.Color := StrToInt64('$' + edtColorHex.Text.TrimLeft(['#',' ']))
+  else
+    ColorPanel1.Color := 0;
 end;
 
 procedure TfrmColorDialog.edtColorNameChangeTracking(Sender: TObject);

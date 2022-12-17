@@ -14,6 +14,8 @@ object frmColorDialog: TfrmColorDialog
   object ColorPanel1: TColorPanel
     Align = Client
     Color = claPowderblue
+    Padding.Top = -5.000000000000000000
+    Padding.Bottom = -5.000000000000000000
     Margins.Left = 8.000000000000000000
     Margins.Right = 8.000000000000000000
     Size.Width = 215.000000000000000000
@@ -94,8 +96,8 @@ object frmColorDialog: TfrmColorDialog
       Size.Width = 64.000000000000000000
       Size.Height = 22.000000000000000000
       Size.PlatformDefault = False
-      OnChangeTracking = edtColorHexChangeTracking
       OnKeyDown = edtAlphaKeyDown
+      OnExit = edtColorHexExit
     end
     object edtColorName: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]

@@ -58,7 +58,7 @@ type
     SpeedButton5: TSpeedButton;
     SpeedButton6: TSpeedButton;
     Line1: TLine;
-    FDScript1: TFDScript;
+    dbCreateDB: TFDScript;
     styleDark: TStyleBook;
     ckDark: TCheckBox;
     cmbCategory: TComboEdit;
@@ -70,6 +70,10 @@ type
     colorFG: TColorButton;
     LinkPropertyToFieldColor: TLinkPropertyToField;
     LinkPropertyToFieldColor2: TLinkPropertyToField;
+    qryPrefs: TFDQuery;
+    qryPrefsName: TWideStringField;
+    qryPrefsSValue: TWideStringField;
+    qryPrefsIValue: TLargeintField;
     procedure FormCreate(Sender: TObject);
     procedure itemsListItemClickEx(const Sender: TObject;
       ItemIndex: Integer; const LocalClickPos: TPointF;
@@ -85,7 +89,6 @@ type
     procedure ckAccumulateChange(Sender: TObject);
     procedure SpeedButton5Click(Sender: TObject);
     procedure SpeedButton6Click(Sender: TObject);
-    procedure dbConnectionBeforeConnect(Sender: TObject);
     procedure ckDarkChange(Sender: TObject);
     procedure colorFGClick(Sender: TObject);
     procedure colorBGClick(Sender: TObject);
@@ -107,6 +110,16 @@ uses IOUtils, ColorDialog;
 
 procedure TForm9.ckAccumulateChange(Sender: TObject);
 begin
+  if ckAccumulate.IsChecked then
+  begin
+    if not qryPrefs.FindKey(['Accumulate']) then
+      qryPrefs.InsertRecord(['Accumulate']);
+  end
+  else
+  begin
+    if qryPrefs.FindKey(['Accumulate']) then
+      qryPrefs.Delete;
+  end;
   UpdateAccumulateUI;
 end;
 
@@ -119,6 +132,18 @@ end;
 
 procedure TForm9.ckDarkChange(Sender: TObject);
 begin
+  if ckDark.IsChecked then
+  begin
+    if not qryPrefs.FindKey(['Dark']) then
+      qryPrefs.InsertRecord(['Dark']);
+  end
+  else
+  begin
+    if qryPrefs.FindKey(['Dark']) then
+      qryPrefs.Delete;
+  end;
+
+
   if ckDark.IsChecked then
     self.StyleBook := styleDark
   else
@@ -143,30 +168,33 @@ begin
   end;
 end;
 
-procedure TForm9.dbConnectionBeforeConnect(Sender: TObject);
+procedure TForm9.FormCreate(Sender: TObject);
 begin
+  tabNav.ActiveTab := tabMain;
+
   if not fileExists(dbConnection.Params.Values['Database']) then
   begin
     dbConnection.Params.Values['Database'] := TPath.Combine(
       ExtractFilePath(ParamStr(0)),
       ExtractFileName(dbConnection.Params.Values['Database']));
 
-    if not fileExists(dbConnection.Params.Values['Database']) then
-    begin
-      FDScript1.ExecuteScript(
-        FDScript1.SQLScripts.FindScript('CreateDB').SQL);
-    end;
   end;
-end;
+  dbCreateDB.ExecuteScript(
+    dbCreateDB.SQLScripts.FindScript('CreateDB').SQL);
 
-procedure TForm9.FormCreate(Sender: TObject);
-begin
-//  ShowMessage('This applications should only be used for productivity templates.'+sLineBreak+
-//    'The data is not encrypted or secure.'+sLineBreak+
-//    'DO NOT Store any PII, PCI, credentials, or other secrets.');
-
-  tabNav.ActiveTab := tabMain;
   qryClips.Open;
+  qryPrefs.Open;
+
+  if not qryPrefs.FindKey(['Pii']) then
+  begin
+    ShowMessage('This applications should only be used for productivity templates.'+sLineBreak+
+      'The data is not encrypted or secure.'+sLineBreak+
+      'DO NOT Store any PII, PCI, credentials, or other secrets.');
+    qryPrefs.InsertRecord(['Pii']);
+  end;
+  ckDark.IsChecked := qryPrefs.FindKey(['Dark']);
+  ckAccumulate.IsChecked := qryPrefs.FindKey(['Accumulate']);
+
   UpdateAccumulateUI;
 end;
 

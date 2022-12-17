@@ -3,7 +3,7 @@ object Form9: TForm9
   Top = 0
   ActiveControl = tabMain
   Caption = 'Quick Paste by Ethan'
-  ClientHeight = 600
+  ClientHeight = 526
   ClientWidth = 298
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -13,21 +13,21 @@ object Form9: TForm9
   object tabNav: TTabControl
     Align = Client
     Size.Width = 298.000000000000000000
-    Size.Height = 600.000000000000000000
+    Size.Height = 526.000000000000000000
     Size.PlatformDefault = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 4
     TabPosition = None
     Sizes = (
       298s
-      600s
+      526s
       298s
-      600s)
+      526s)
     object tabMain: TTabItem
       CustomIcon = <
         item
         end>
-      IsSelected = False
+      IsSelected = True
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -43,7 +43,7 @@ object Form9: TForm9
         FooterAppearanceClassName = 'TListHeaderObjects'
         Align = Client
         Size.Width = 298.000000000000000000
-        Size.Height = 456.000000000000000000
+        Size.Height = 382.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         OnPaint = itemsListPaint
@@ -52,6 +52,7 @@ object Form9: TForm9
         ItemAppearanceObjects.ItemObjects.Text.PlaceOffset.X = 16.000000000000000000
         ItemAppearanceObjects.HeaderObjects.Text.Font.StyleExt = {00070000000000000004000000}
         OnItemClickEx = itemsListItemClickEx
+        SearchVisible = True
       end
       object Layout1: TLayout
         Align = Top
@@ -98,14 +99,14 @@ object Form9: TForm9
         Align = Bottom
         Cursor = crVSplit
         MinSize = 20.000000000000000000
-        Position.Y = 499.000000000000000000
+        Position.Y = 425.000000000000000000
         Size.Width = 298.000000000000000000
         Size.Height = 9.000000000000000000
         Size.PlatformDefault = False
       end
       object layAccumulate: TLayout
         Align = MostBottom
-        Position.Y = 508.000000000000000000
+        Position.Y = 434.000000000000000000
         Size.Width = 298.000000000000000000
         Size.Height = 92.000000000000000000
         Size.PlatformDefault = False
@@ -120,8 +121,8 @@ object Form9: TForm9
           Size.Height = 87.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 2
-          Viewport.Width = 229.000000000000000000
-          Viewport.Height = 87.000000000000000000
+          Viewport.Width = 225.000000000000000000
+          Viewport.Height = 83.000000000000000000
         end
         object Layout4: TLayout
           Align = Right
@@ -155,7 +156,7 @@ object Form9: TForm9
       object Line1: TLine
         Align = Bottom
         LineType = Diagonal
-        Position.Y = 498.000000000000000000
+        Position.Y = 424.000000000000000000
         Size.Width = 298.000000000000000000
         Size.Height = 1.000000000000000000
         Size.PlatformDefault = False
@@ -165,7 +166,7 @@ object Form9: TForm9
       CustomIcon = <
         item
         end>
-      IsSelected = True
+      IsSelected = False
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -183,11 +184,11 @@ object Form9: TForm9
         Margins.Right = 5.000000000000000000
         Margins.Bottom = 5.000000000000000000
         Size.Width = 288.000000000000000000
-        Size.Height = 522.000000000000000000
+        Size.Height = 448.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
-        Viewport.Width = 288.000000000000000000
-        Viewport.Height = 522.000000000000000000
+        Viewport.Width = 284.000000000000000000
+        Viewport.Height = 444.000000000000000000
       end
       object Layout2: TLayout
         Align = Top
@@ -13666,7 +13667,6 @@ object Form9: TForm9
       'DriverID=SQLite')
     Connected = True
     LoginPrompt = False
-    BeforeConnect = dbConnectionBeforeConnect
     Left = 48
     Top = 200
   end
@@ -13781,19 +13781,24 @@ object Form9: TForm9
       ComponentProperty = 'Color'
     end
   end
-  object FDScript1: TFDScript
+  object dbCreateDB: TFDScript
     SQLScripts = <
       item
         Name = 'CreateDB'
         SQL.Strings = (
-          '-- Clips definition'
-          'CREATE TABLE Clips ('
-          #9'idx INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,'
-          #9'Name NVARCHAR(1024),'
-          #9'Body TEXT,'
-          #9'Category NVARCHAR(256), '
-          #9'Foreground BIGINT, '
-          #9'Background BIGINT);')
+          'CREATE TABLE IF NOT EXISTS Clips ('
+          #9#9'idx INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,'
+          #9#9'Name NVARCHAR(1024),'
+          #9#9'Body TEXT,'
+          #9#9'Category NVARCHAR(256), '
+          #9#9'Foreground BIGINT, '
+          #9#9'Background BIGINT);'
+          ''
+          ''
+          'CREATE TABLE IF NOT EXISTS Preferences ('
+          #9#9'Name NVARCHAR(256) NOT NULL PRIMARY KEY,'
+          #9#9'SValue NVARCHAR(1025),'
+          #9#9'IValue BIGINT);')
       end>
     Connection = dbConnection
     Params = <>
@@ -13827,5 +13832,30 @@ object Form9: TForm9
     ScopeMappings = <>
     Left = 144
     Top = 296
+  end
+  object qryPrefs: TFDQuery
+    IndexFieldNames = 'Name'
+    Connection = dbConnection
+    SQL.Strings = (
+      'SELECT * '
+      'FROM Preferences')
+    Left = 221
+    Top = 193
+    object qryPrefsName: TWideStringField
+      FieldName = 'Name'
+      Origin = 'Name'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 256
+    end
+    object qryPrefsSValue: TWideStringField
+      FieldName = 'SValue'
+      Origin = 'SValue'
+      Size = 1025
+    end
+    object qryPrefsIValue: TLargeintField
+      FieldName = 'IValue'
+      Origin = 'IValue'
+    end
   end
 end
