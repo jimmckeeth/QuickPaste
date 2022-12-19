@@ -167,7 +167,10 @@ end;
 
 function TfrmColorDialog.GetColor: TAlphaColor;
 begin
-  Result := ColorPanel1.Color;
+  var c: TAlphaColorRec;
+  c.Color := ColorPanel1.Color;
+  c.A := $ff;
+  Result := c.Color;
 end;
 
 procedure TfrmColorDialog.SetColor(const Value: TAlphaColor);
