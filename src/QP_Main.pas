@@ -29,7 +29,7 @@ type
     qryClipsidx: TFDAutoIncField;
     qryClipsName: TWideStringField;
     qryClipsBody: TWideMemoField;
-    BindSourceDB1: TBindSourceDB;
+    BindClips: TBindSourceDB;
     BindingsList1: TBindingsList;
     qryClipsCategory: TWideStringField;
     itemsList: TListView;
@@ -64,12 +64,10 @@ type
     cmbCategory: TComboEdit;
     qryCategories: TFDQuery;
     qryCategoriesCategory: TWideStringField;
-    BindSourceDB2: TBindSourceDB;
+    BindCategories: TBindSourceDB;
     LinkFillControlToField1: TLinkFillControlToField;
     colorBG: TColorButton;
     colorFG: TColorButton;
-    LinkPropertyToFieldColor: TLinkPropertyToField;
-    LinkPropertyToFieldColor2: TLinkPropertyToField;
     qryPrefs: TFDQuery;
     qryPrefsName: TWideStringField;
     qryPrefsSValue: TWideStringField;
@@ -156,6 +154,7 @@ begin
   if frmColorDialog.ShowModal =  mrOk then
   begin
     colorBG.Color := frmColorDialog.Color;
+    qryClipsBackground.Value := frmColorDialog.Color;
   end;
 end;
 
@@ -165,6 +164,7 @@ begin
   if frmColorDialog.ShowModal =  mrOk then
   begin
     colorFG.Color := frmColorDialog.Color;
+    qryClipsForeground.Value := frmColorDialog.Color;
   end;
 end;
 

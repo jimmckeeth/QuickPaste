@@ -13655,8 +13655,8 @@ object Form9: TForm9
           000080FF3F0754726967676572060E4973507265737365643D7472756507456E
           61626C65640800000000}
       end>
-    Left = 232
-    Top = 264
+    Left = 224
+    Top = 256
   end
   object dbConnection: TFDConnection
     Params.Strings = (
@@ -13665,7 +13665,6 @@ object Form9: TForm9
         'kPaste\data\QuickPaste.sqlite3'
       'LockingMode=Normal'
       'DriverID=SQLite')
-    Connected = True
     LoginPrompt = False
     Left = 48
     Top = 200
@@ -13677,8 +13676,8 @@ object Form9: TForm9
     Connection = dbConnection
     SQL.Strings = (
       'select * from clips')
-    Left = 88
-    Top = 376
+    Left = 128
+    Top = 304
     object qryClipsidx: TFDAutoIncField
       FieldName = 'idx'
       Origin = 'idx'
@@ -13715,11 +13714,11 @@ object Form9: TForm9
       Calculated = True
     end
   end
-  object BindSourceDB1: TBindSourceDB
+  object BindClips: TBindSourceDB
     DataSet = qryClips
     ScopeMappings = <>
-    Left = 168
-    Top = 400
+    Left = 40
+    Top = 352
   end
   object BindingsList1: TBindingsList
     Methods = <>
@@ -13728,7 +13727,7 @@ object Form9: TForm9
     Top = 285
     object LinkListControlToField1: TLinkListControlToField
       Category = 'Quick Bindings'
-      DataSource = BindSourceDB1
+      DataSource = BindClips
       FieldName = 'Name'
       Control = itemsList
       FillExpressions = <
@@ -13742,43 +13741,29 @@ object Form9: TForm9
     end
     object LinkControlToField1: TLinkControlToField
       Category = 'Quick Bindings'
-      DataSource = BindSourceDB1
+      DataSource = BindClips
       FieldName = 'Body'
       Control = Memo1
       Track = False
     end
     object LinkControlToField2: TLinkControlToField
       Category = 'Quick Bindings'
-      DataSource = BindSourceDB1
+      DataSource = BindClips
       FieldName = 'Name'
       Control = Edit1
       Track = False
     end
     object LinkFillControlToField1: TLinkFillControlToField
       Category = 'Quick Bindings'
-      DataSource = BindSourceDB1
+      DataSource = BindClips
       FieldName = 'Category'
       Control = cmbCategory
       Track = False
-      FillDataSource = BindSourceDB2
+      FillDataSource = BindCategories
       AutoFill = False
       FillExpressions = <>
       FillHeaderExpressions = <>
       FillBreakGroups = <>
-    end
-    object LinkPropertyToFieldColor: TLinkPropertyToField
-      Category = 'Quick Bindings'
-      DataSource = BindSourceDB1
-      FieldName = 'Foreground'
-      Component = colorFG
-      ComponentProperty = 'Color'
-    end
-    object LinkPropertyToFieldColor2: TLinkPropertyToField
-      Category = 'Quick Bindings'
-      DataSource = BindSourceDB1
-      FieldName = 'Background'
-      Component = colorBG
-      ComponentProperty = 'Color'
     end
   end
   object dbCreateDB: TFDScript
@@ -13827,11 +13812,11 @@ object Form9: TForm9
       Size = 256
     end
   end
-  object BindSourceDB2: TBindSourceDB
+  object BindCategories: TBindSourceDB
     DataSet = qryCategories
     ScopeMappings = <>
-    Left = 144
-    Top = 296
+    Left = 40
+    Top = 416
   end
   object qryPrefs: TFDQuery
     IndexFieldNames = 'Name'
